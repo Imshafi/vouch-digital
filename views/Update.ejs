@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <form action="/update/<%=users._id %>" method="POST">
+            <input type="hidden" name="token" value="<%=token%>">
+            <div class="form-group">
+                <label><b>User Name : </b></label>
+                <input type="text" name="UserName" value="<%=users.UserName%>" class="form-control" value="<%=users.UserName %>">
+            </div>
+            <div class="form-group">
+                <label><b>Mobile Number : </b></label>
+                <input type="number" name="MobileNumber" value="<%=users.MobileNumber%>" class="form-control" value="<%=users.MobileNumber %>">
+            </div>
+            <input type="submit" value="Update" name="update" class="btn btn-success">
+        </form>
+    </div>
+</body>
+</html>

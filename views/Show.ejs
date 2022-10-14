@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/addcontact"> <input type="submit" value="Add Contact" class="btn btn-primary"> </a>
+        <table class="table table-border table-bordered text-center shadow">
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>Mobile Number</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            <% users.forEach((user)=>{  %>
+            <tr>
+                <td><%= user._id %></td>
+                <td><%= user.UserName %></td>
+                <td><%= user.MobileNumber %></td>
+                <td> <a href="/update/<%= user._id %>" class="btn btn-success">Update</a> </td>
+                <td> <a href="/delete/<%= user._id %>" class="btn btn-danger">Delete</a> </td>
+            </tr>
+            <% }) %>
+        </table> 
+    </div>
+</body>
+</html>

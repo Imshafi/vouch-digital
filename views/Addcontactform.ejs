@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-con"></div>
+        <template>
+            <form class="form" method="POST">
+                <div class="form-group">
+                    <label><b>User Name : </b></label>
+                    <input type="text" name="UserName" placeholder="user name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label><b>Mobile Number : </b></label>
+                    <input type="number" name="MobileNumber" pattern="[6-9]{1}[0-9]{9}" placeholder="mobile number" class="form-control">
+                </div>
+            </form>
+        </template>
+        
+        <button onclick="formSubmit()" class="btn btn-primary">Save contact</button>
+        <button onclick="addFrom()" class="btn btn-primary">Add New contact</button>
+    </div>
+    <script>
+        var template = document.querySelector('template');
+        let con = document.querySelector(".form-con");
+        function addFrom(){
+            let form = template.content.cloneNode(true).children[0];
+            con.append(form);
+        }
+        addFrom()
+        const formSubmit = async ()=>{
+            let forms = document.querySelectorAll(".form");
+            let data = [];
+            forms.forEach(e=>{
+                let formData = new FormData(e);
+                data.push({name:formData.get("UserName"),mobileNuber:formData.get("MobileNumber")})
+            })
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if( xhr.readyState==4 ){
+                    if( xhr.status==200 ){
+                        let data=JSON.parse(xhr.response);
+                        if( data.status ){
+                            window.location.href="/"
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+                }
+            }
+            xhr.open("post",'http://localhost:5000/addbulkcontact');
+            xhr.setRequestHeader('Content-Type','application/json');
+            data = JSON.stringify({data:data,token:"<%=token%>"})
+            xhr.send(data)
+        }
+    </script>
+</body>
+</html>
